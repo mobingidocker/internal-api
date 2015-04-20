@@ -11,6 +11,16 @@ configure do
 end
 
 def credentials
+
+  begin
+    credfile = "/opt/apiconfig/credentials.json"
+    if File.exists?(credfile)
+      fileCreds = JSON.parse(File.read(credfile), :symbolize_names => true)
+      return fileCreds
+    end
+  rescue 
+  end
+
   credentials = {
     region: ENV['AWS_REGION'], 
     access_key_id: ENV['AWS_ACCESS_KEY_ID'], 
