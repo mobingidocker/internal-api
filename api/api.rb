@@ -66,10 +66,16 @@ get '/stack/instances/?' do
     select { |x| x[:auto_scaling_group_name] == asgid }.
     map { |x| x[:instance_id] }
 
-    result.to_json
+  result << "self"
+
+  result.to_json
 end
 
 get '/stack/instances/:instance/?' do
+  if params[:instance] == "self"
+  	params[:instance] = `curl http://169.254.169.254/latest/meta-data/instance-id`.chomp
+  end
+
   ec2 = Aws::EC2::Client.new(credentials)
 
   begin
@@ -83,6 +89,11 @@ get '/stack/instances/:instance/?' do
 end
 
 get '/stack/instances/:instance/state' do
+
+  if params[:instance] == "self"
+  	params[:instance] = `curl http://169.254.169.254/latest/meta-data/instance-id`.chomp
+  end
+
   ec2 = Aws::EC2::Client.new(credentials)
 
   begin
@@ -97,6 +108,11 @@ get '/stack/instances/:instance/state' do
 end
 
 get '/stack/instances/:instance/privateip' do
+
+  if params[:instance] == "self"
+  	params[:instance] = `curl http://169.254.169.254/latest/meta-data/instance-id`.chomp
+  end
+
   ec2 = Aws::EC2::Client.new(credentials)
 
   begin
@@ -111,6 +127,11 @@ get '/stack/instances/:instance/privateip' do
 end
 
 get '/stack/instances/:instance/publicip' do
+
+  if params[:instance] == "self"
+  	params[:instance] = `curl http://169.254.169.254/latest/meta-data/instance-id`.chomp
+  end
+  
   ec2 = Aws::EC2::Client.new(credentials)
 
   begin
