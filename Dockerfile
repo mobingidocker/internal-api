@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER David Siaw <david.siaw@mobingi.com>
+LABEL MAINTAINER gone
 
 ADD provision.sh /provision.sh
 ADD run.sh /run.sh

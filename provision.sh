@@ -21,9 +21,9 @@ pushd /tmp
   ./install.sh
 popd
 
-rbenv install 2.1.0
+rbenv install 2.2.10
 
-rbenv global 2.1.0
+rbenv global 2.2.10
 
 gem install bundler
 
